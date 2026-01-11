@@ -18,6 +18,12 @@
             "pages": [
               "fai/declaration/declaring"
             ]
+          },
+          {
+            "group": "storage",
+            "pages": [
+              "database-schemas"
+            ]
           }
         ]
       },

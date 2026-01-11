@@ -1,0 +1,67 @@
+---
+title: "Database Schemas"
+description: ""
+---
+
+### Overview
+
+For each `FAIInstance`, there will be a separate database created with the same schema. Each database has four tables: `deployments`, `dev`, `prod`, and `tools`. We primarily use Cloudflare D1 (SQLite) and R2 for storage.
+
+---
+
+### `dev` / `prod`
+
+Stores generations (same schema for both environments).
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `gen_id` | TEXT | Primary key |
+| `gen_thread_id` | TEXT | Groups multi-turn conversations |
+| `gen_flow_id` | TEXT | Groups flow steps |
+| `gen_type` | TEXT | Generation type |
+| `gen_category` | TEXT | Category |
+| `created_at` | TEXT | Timestamp |
+| `status` | TEXT | pending, running, success, error |
+| `targets` | TEXT | JSON |
+| `configs` | TEXT | JSON |
+| `outputs` | TEXT | JSON |
+| `traces` | TEXT | Execution history |
+| `citations` | TEXT | JSON |
+| `error` | TEXT | Error message if failed |
+
+---
+
+### `deployments`
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `deployment_id` | TEXT | Primary key |
+| `instance_name` | TEXT | FAI instance name |
+| `env` | TEXT | Environment |
+| `git_commit` | TEXT | Commit hash |
+| `message` | TEXT | Deployment message |
+| `created_at` | TEXT | Timestamp |
+| `is_active` | INTEGER | Active flag |
+| `metadata` | TEXT | JSON |
+
+---
+
+### `tools`
+
+Stores individual tool call results linked to generations.
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `tool_id` | TEXT | Primary key |
+| `gen_id` | TEXT | FK to generations |
+| `tool_name` | TEXT | e.g., "fiscal_ai-fetch_company_profile" |
+| `tool_provider` | TEXT | e.g., "fiscal_ai" |
+| `status` | TEXT | success or error |
+| `args` | TEXT | JSON input arguments |
+| `data` | TEXT | JSON output data |
+| `token_count` | INTEGER | Estimated tokens |
+| `duration_ms` | INTEGER | Execution time |
+| `error` | TEXT | Error message if failed |
+| `created_at` | TEXT | Timestamp |
+
+---
