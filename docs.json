@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Wissen Documentation",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -11,49 +11,12 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "fai",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "declaration",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Coverage",
-            "pages": [
-              "coverage/equity",
-              "coverage/data"
-            ]
-          },
-          {
-            "group": "Benchmarking",
-            "pages": [
-              "benchmarking/quick-overview"
-            ]
-          },
-          {
-            "group": "Core Choices",
-            "pages": [
-              "core-choices/page",
-              "core-choices/sourcing"
-            ]
-          },
-          {
-            "group": "Misc",
-            "pages": [
-              "misc/api-keys",
-              "misc/rate-limits",
-              "misc/security"
-            ]
-          },
-          {
-            "group": "Core Functions",
-            "pages": [
-              "core-functions/filtering",
-              "core-functions/multimodal-search"
+              "declaration/declaring"
             ]
           }
         ]
