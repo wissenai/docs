@@ -5,6 +5,10 @@ description: ""
 
 Below is a table of tools & usage notes. Use this more of a guide for determining what tools you need to use alongside getting more understanding around the tool depedendencies. You should still use your own judgement on what tools to utilise.
 
+By standardising tools in this manner, we allow for ourselves to be able to describe tools
+- by action: e.g. `<action>_*`, 
+- by provider: e.g. `<provider>-*`
+- by 'entity' or by 'data type'?
 
 
 | Provider | Action | Tool Name | Notes |
@@ -12,6 +16,9 @@ Below is a table of tools & usage notes. Use this more of a guide for determinin
 | Wissen | check | wissen-check_token_usage | Use this to monitor your context window. You have a hard limit that you need to be aware of |
 | Wissen | create | wissen-create_plan | This should be done after you've explored data to detail the how you will approach the research |
 | Wissen | write | wissen-todo_write | You should use this to log updates to your work specifically related to the plan that is created via `wissen-create_plan` |
+| Wissen | list | wissen-list_gen_types | You should use this to list the unique generation types available in the database. The `gen_type` themselves should be self-descriptive i.e. `revenue_analysis` means a `revenue_analysis` |
+| Wissen | list | wissen-list_generations | You should use this to list the generations that are available in the database. Ideally, where applicable, you should always use the `ticker` and `gen_type` filters to get to the specific sets of generations. |
+| Wissen | fetch | wissen-fetch_generation | This will give you the outputs of a given generation specifically via using `gen_id`. You should use `wissen-list_generations` to get the `gen_id` |
 | Quartr | list | quartr-list_companies | You should use this when you need to 'find' companies. Always make sure that you try to use the filters available to you rather than running a raw list |
 | Quartr | list | quartr-list_company_events | Use this to get context on the events that have occured for a company as tracked by Quartr |
 | Quartr | list | quartr-list_company_reports | Use this to list the reports e.g. 10-Ks, Proxies, H1s, etc. that are available for a given company |
