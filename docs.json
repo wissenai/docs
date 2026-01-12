@@ -24,9 +24,16 @@
             "pages": [
               "database-schemas"
             ]
+          },
+          {
+            "group": "tools",
+            "pages": [
+              "tools"
+            ]
           }
         ]
       },
+      
       {
         "tab": "API Reference",
         "groups": [

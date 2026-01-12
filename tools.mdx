@@ -1,0 +1,48 @@
+---
+title: "Tools"
+description: ""
+---
+
+Below is a table of tools & usage notes. Use this more of a guide for determining what tools you need to use alongside getting more understanding around the tool depedendencies. You should still use your own judgement on what tools to utilise.
+
+
+
+| Tool Name | Notes |
+|-----------|-------|
+| wissen-check_token_usage | Use this to monitor your context window. You have a hard limit that you need to be aware of |
+| wissen-create_plan | This should be done after you've explored data to detail the how you will approach the research |
+| wissen-todo_write | You should use this to log updates to your work specifically related to the plan that is created via `wissen-create_plan` |
+| quartr-list_companies | You should use this when you need to 'find' companies. Always make sure that you try to use the filters available to you rather than running a raw list |
+| quartr-list_company_events | Use this to get context on the events that have occured for a company as tracked by Quartr |
+| quartr-list_company_reports | Use this to list the reports e.g. 10-Ks, Proxies, H1s, etc. that are available for a given company |
+| quartr-list_company_slides | Use this to list the slides that are available for a given company e.g. earnings presentations, investor presentations, etc.  |
+| quartr-list_company_transcripts | Use this to list the transcripts that are available to you for a given company e.g. earnings call transcript, investor conference transcript etc. |
+| quartr-list_event_types | Use this to get the types of events - this will be helpful for you in contextualising what events the reports/slides/transcripts are part of |
+| quartr-list_document_types | Use this to get better understanding of the types of documents that you interface from Quartr |
+| fiscal_ai-list_ratios | Use this of standardised ratios from Fiscal AI. This is specifically helpful to get more specific data from `fiscal_ai-fetch_company_ratios` and `fiscal_ai-fetch_company_daily_ratios` via the `ratio_id` |
+| fiscal_ai-fetch_company_profile | Use this to get the company profile produced by fiscal_ai and also get compile an identifier for other fiscal ai tools. This tool will give you the `<exchange_symbol>` and `ticker` which you can then use as the `company_key` for other `fiscal_ai-*` tools |
+| fiscal_ai-fetch_company_income_statement_as_reported | You should use this to get the income statements as reported by the company. Where possible make sure to specify the `period_type` |
+| fiscal_ai-fetch_company_balance_sheet_as_reported | You should use this to get the balance sheet as reported as reported by the company. Where possible make sure to specify the `period_type` |
+| fiscal_ai-fetch_company_cash_flow_as_reported |You should use this to get the cashflows as reported as reported by the company. Where possible make sure to specify the `period_type`  |
+| fiscal_ai-fetch_company_ratios | You can use this to get the list of company ratios across time. Ideally specify the `ratio_id` which you can get from `list_ratios` so that you are getting more specific data |
+| fiscal_ai-fetch_company_daily_ratios | You can use this to get the list of company ratios across time. Ideally specify the `ratio_id` which you can get from `list_ratios` so that you are getting more specific data |
+| fiscal_ai-fetch_company_shares_outstanding | Use this to get the company's shares outstanding overtime |
+| fiscal_ai-fetch_company_segments_and_kpis | Use this to get the a company's segments breakdowns and kpis across time. Where possible make sure to specify the `period_type` |
+| fiscal_ai-fetch_company_adjusted_metrics | Use this to fetch a company's adjusted metrics.  Where possible make sure to specify the `period_type`|
+| fiscal_ai-fetch_company_stock_splits | Use this to get a company's historical stock splits |
+| fiscal_ai-fetch_company_stock_prices | Use this to get a company's stock prices. Make sure to specify `start_date` and `end_date` to get more specific stock price histories |
+| reducto-extract_data | Use this to extract data from a PDF url. The `system_prompt` let's you specify the specific information you are looking for. Do not change the `schema`. This is typically used after you've identified pdf urls from `quartr-list_company_slides` and `quartr-list_company_reports` |
+| wissen-extract_quartr_transcript | Use this to extract data from a quartr transcript url. The `query` let's you specify the specific information you are looking for. This is typically used after you've identified transcript urls from `quartr-list_company_transcripts` |
+| exa-search_web | Use this when you want to search for information on the web. You should think very deeply about the types of sources that are credible to a world-class hedge fund when you get the search results returned |
+| exa-fetch_url_contents | Use this to fetch data from an array of urls after you've identified urls from the `exa-search_web` tool |
+| factset-list_estimate_metrics | You should use this to get the collection of metrics that are used for the the other factset endpoints e.g. `factset-fetch_company_segment_actuals`. This will enable you to both be able to use the other endpoints but also get specific with the types of information you are looking for. You should generally configure `category="FINANCIAL_STATEMENT"` unless stated otherwise.|
+| factset-fetch_ticker_identifiers | You should use this to get the company identifier that enables you to use the other factset endpoints specifically taking the `ticker_exchange` as the identifier specific to factset i.e. the `ids` parameter for the other tools|
+| factset-fetch_company_fixed_consensus | Returns FactSet Estimates consensus data using fixed fiscal dates. For example, if the company's current unreported year is 12/2020, all data returned by formulas that specify as the period/report basis will be for 12/2005 regardless of what perspective dates (startDate/endDate) are used. The fixed dates are "locked" in time and all estimated values are for that explicit date. If you are requesting that the estimated periods can change with the perspective date, please use the rolling-consensus endpoint. |
+| factset-fetch_company_rolling_consensus | Returns FactSet Estimates consensus data using rolling fiscal dates. The rolling behavior causes fiscal year to automatically roll from one year to the next as the historical perspective date changes. The fiscal period rolls forward as of each period end. This endpoint is optimized to allow the request to simply include a relative fiscal period (e.g. use relativeFiscalStart integer 1 and periodicity ANN for next unreported fiscal year end), and then see what the consensus thought the "next fiscal year" estimates were through time as you "roll" back your perspective dates. This differs from locking down an absolute estimate period such as explicitly stating Fiscal Year 2019. This can be done in the fixed-consensus endpoint. |
+| factset-fetch_company_actuals | Returns FactSet Estimates actuals data using reported fiscal dates. You must have `ids` and `metrics` already from `factset-fetch_ticker_identifiers` and `factset-list_estimate_metrics` respectively. This will give you mostly historicals of a given metric(s) but sometimes is also mixed in with `broker` actuals. Where possible, try to specificify `periodicity` i.e. ANN, QTR, SEMI, NTMA, LTMA |
+| factset-fetch_company_ratings | This will give a daily summary of company ratings i.e. the buy_count, overweight_count, hold_count, underweight_count and sell_count. Make sure to specify the `start_date` and `end_date`. Try to ensure that you only consider 100 days at a time as too large range of dates can be token intensive |
+| factset.fetch_company_segments_estimates | You can use this to get segment-level estimates for a given company. You have two options in `segment_type` either `BUS` - business segments or `GEO` - geographical segments. Once you have the list of metrics from `factset-list_estimate_metrics`, then use that to get the segment estimates that you require (note not all metrics have estimates, `SALES` typically has estimates). Make sure to specify the `start_date` and `end_date` and/or the `relative_fiscal_start` and `relative_fiscal_end`. |
+| factset-fetch_company_surprises | You can use this to get the company surprises.  Once you have the list of metrics from `factset-list_estimate_metrics`, then use that to get the segment estimates that you require. Make sure to specify the `start_date` and `end_date` and/or the `relative_fiscal_start` and `relative_fiscal_end`.|
+| factset-fetch_company_guidance | Use this to get the company guidance on metrics. Once you have `factset-list_estimate_metrics` you can then find the company guidance (where available) for those metrics. Make sure to specify the `start_date` and `end_date` and/or the `relative_fiscal_start` and `relative_fiscal_end` where applicable |
+| factset-fetch_company_segment_actuals |  You can use this to get segment-level actuals (historicals) for a given company. You have two options in `segment_type` either `BUS` - business segments or `GEO` - geographical segments. Once you have the list of metrics from `factset-list_estimate_metrics`, then use that to get the segment estimates that you require (note not all metrics have estimates, `SALES` typically has estimates). Make sure to specify the `start_date` and `end_date` and/or the `relative_fiscal_start` and `relative_fiscal_end`.  |
+| factset-fetch_news_by_ticker | You should use this for when trying to find company-specific news as curated/filtered by Factset. |

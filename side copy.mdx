@@ -1,0 +1,154 @@
+---
+title: "Tools"
+description: ""
+---
+
+# Overview
+
+action // provider // entity // data
+
+# Factset Tools
+
+- factset-resolve_identifiers -> factset-fetch_ticker_identifiers
+- factset-get_company_rolling_consensus -> factset-fetch_company_rolling_consensus
+- factset-get_company_fixed_consensus -> factset-fetch_company_fixed_consensus
+- factset-get_company_actuals -> factset-fetch_company_actuals
+- factset-get_company_segments -> factset-fetch_company_segments
+- factset-get_company_segment_actuals -> factset-fetch_company_segment_actuals
+- factset-get_company_guidance -> factset-fetch_company_guidance
+- factset-get_company_ratings -> factset-fetch_company_ratings
+- factset-get_company_surprises -> factset-fetch_company_surprises
+- factset-list_estimate_metrics
+- factset-get_news_headlines -> factset-fetch_news_headlines
+- factset-get_news_by_ticker -> factset-fetch_news_by_ticker
+- factset-list_news_categories
+- factset-list_news_regions
+- factset-list_news_sectors
+- factset-list_news_topics
+
+# Exa Tools
+
+- exa-search
+- exa-search_and_contents
+- exa-get_contents
+- exa-find_similar
+- exa-find_similar_and_contents
+- exa-answer
+
+# Fiscal Ai Tools
+
+- fiscal_ai-list_companies
+- fiscal_ai-fetch_company_profile
+- fiscal_ai-fetch_income_statement_as_reported -> fiscal_ai-fetch_company_income_statement_as_reported
+- fiscal_ai-fetch_balance_sheet_as_reported -> fiscal_ai-fetch_company_balance_sheet_as_reported
+- fiscal_ai-fetch_cash_flow_as_reported -> fiscal_ai-fetch_company_cash_flow_as_reported
+- fiscal_ai-fetch_income_statement_standardized -> fiscal_ai-fetch_company_income_statement_standardized
+- fiscal_ai-fetch_balance_sheet_standardized -> fiscal_ai-fetch_company_balance_sheet_standardized
+- fiscal_ai-fetch_cash_flow_standardized -> fiscal_ai-fetch_company_cash_flow_standardized
+- fiscal_ai-list_standardized_metrics
+- fiscal_ai-list_ratios
+- fiscal_ai-fetch_company_ratios
+- fiscal_ai-fetch_daily_ratios -> fiscal_ai-fetch_company_daily_ratios
+- fiscal_ai-fetch_shares_outstanding -> fiscal_ai-fetch_company_shares_outstanding
+- fiscal_ai-fetch_segments_and_kpis -> fiscal_ai-fetch_company_segments_and_kpis
+- fiscal_ai-fetch_adjusted_metrics -> fiscal_ai-fetch_company_adjusted_metrics
+- fiscal_ai-fetch_stock_splits -> fiscal_ai-fetch_company_stock_splits
+- fiscal_ai-fetch_stock_prices -> fiscal_ai-fetch_company_stock_prices
+- fiscal_ai-list_company_filings
+- fiscal_ai-fetch_filing_page -> fiscal_ai-fetch_company_filing_page
+- fiscal_ai-fetch_filing_pdf -> fiscal_ai-fetch_company_filing_pdf
+
+# Mistral Tools
+
+- mistral-process_document -> mistral-extract_document
+- mistral-process_document_url -> mistral-extract_document_url
+- mistral-process_image -> mistral-extract_image
+- mistral-process_image_url -> mistral-extract_image_url
+
+# Parallel Tools
+
+- parallel-search
+- parallel-extract
+- parallel-run_task
+- parallel-get_task_status
+- parallel-chat
+- parallel-findall
+- parallel-get_findall_status
+
+# Quartr Tools
+
+- quartr-list_events -> quartr-list_company_events
+- quartr-get_event -> quartr-fetch_company_event
+- quartr-list_event_types
+- quartr-get_event_type -> quartr-fetch_event_types
+- quartr-list_companies
+- quartr-get_company -> quartr-fetch_company
+- quartr-get_transcript -> quartr-fetch_company_transcript
+- quartr-list_transcripts -> quartr-list_company_transcripts
+- quartr-list_documents -> quartr-list_company_documents
+- quartr-get_document -> quartr-fetch_company_document
+- quartr-list_document_types
+- quartr-get_document_type -> quartr-fetch_document_type
+- quartr-list_reports -> quartr-list_company_reports
+- quartr-get_report -> quartr-fetch_company_report
+- quartr-list_slides -> quartr-list_company_slides
+- quartr-get_slide_deck -> quartr-fetch_company_slide_deck
+
+# Reducto Tools
+
+- reducto-parse_document
+- reducto-parse_document_async
+- reducto-split_document
+- reducto-split_document_async
+- reducto-extract_data
+- reducto-extract_data_async
+- reducto-edit_document
+- reducto-edit_document_async
+- reducto-upload_document
+- reducto-get_job_status
+- reducto-cancel_job
+- reducto-get_version
+
+# Sec Api Tools
+
+- sec_api-query_filings
+- sec_api-search_full_text
+- sec_api-extract_section
+- sec_api-get_insider_trading
+- sec_api-get_auditor_changes
+- sec_api-get_financial_restatements
+- sec_api-get_director_officer_changes
+- sec_api-get_ipo_filings
+- sec_api-get_annual_reports
+- sec_api-get_executive_compensation
+- sec_api-get_directors
+- sec_api-get_subsidiaries
+- sec_api-get_outstanding_shares
+- sec_api-resolve_cik
+- sec_api-resolve_ticker
+- sec_api-resolve_cusip
+- sec_api-search_companies_by_name
+- sec_api-list_companies_by_exchange
+- sec_api-list_companies_by_sector
+- sec_api-list_companies_by_industry
+- sec_api-get_financials
+
+
+# Wissen Tools
+
+- wissen-transform_quartr_transcript
+- wissen-extract_quartr_transcript
+- wissen-extract_pdf_via_images
+- wissen-extract_pdf_via_text
+- wissen-list_generations
+- wissen-list_gen_types
+- wissen-fetch_generation
+- wissen-fetch_tool_calls
+- wissen-check_token_usage
+- wissen-create_plan
+- wissen-todo_write
+- wissen-get_plan
+
+# Declared agents-as-tools
+
+These will all have wissen-delegate_<gen_type> naming conventions so you can refer to them.

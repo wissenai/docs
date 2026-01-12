@@ -1,0 +1,135 @@
+---
+title: "Tools"
+description: ""
+---
+
+# Overview
+
+`{provider}-{action}_{scope}_{data}`
+
+**Actions:** `list`, `fetch`, `search`, `extract`, `transform`, `delegate`, `create`, `edit`, `cancel`
+
+**Scope:** `company`, `ticker`, `web`, `pdf`, `document`, `image` *(or omit for global)*
+
+---
+
+# Factset
+
+- factset-fetch_ticker_identifiers
+- factset-fetch_company_rolling_consensus
+- factset-fetch_company_fixed_consensus
+- factset-fetch_company_actuals
+- factset-fetch_company_segments
+- factset-fetch_company_segment_actuals
+- factset-fetch_company_guidance
+- factset-fetch_company_ratings
+- factset-fetch_company_surprises
+- factset-list_estimate_metrics
+- factset-fetch_news_headlines
+- factset-fetch_news_by_ticker
+- factset-list_news_categories
+- factset-list_news_regions
+- factset-list_news_sectors
+- factset-list_news_topics
+
+# Exa
+
+- exa-search_web
+- exa-search_web_contents
+- exa-fetch_web_contents
+- exa-search_web_similar
+- exa-search_web_similar_contents
+- exa-answer
+
+# Fiscal AI
+
+- fiscal_ai-list_companies
+- fiscal_ai-fetch_company_profile
+- fiscal_ai-fetch_company_income_statement_as_reported
+- fiscal_ai-fetch_company_balance_sheet_as_reported
+- fiscal_ai-fetch_company_cash_flow_as_reported
+- fiscal_ai-fetch_company_income_statement_standardized
+- fiscal_ai-fetch_company_balance_sheet_standardized
+- fiscal_ai-fetch_company_cash_flow_standardized
+- fiscal_ai-list_standardized_metrics
+- fiscal_ai-list_ratios
+- fiscal_ai-fetch_company_ratios
+- fiscal_ai-fetch_company_daily_ratios
+- fiscal_ai-fetch_company_shares_outstanding
+- fiscal_ai-fetch_company_segments_and_kpis
+- fiscal_ai-fetch_company_adjusted_metrics
+- fiscal_ai-fetch_company_stock_splits
+- fiscal_ai-fetch_company_stock_prices
+- fiscal_ai-list_company_filings
+- fiscal_ai-fetch_company_filing_page
+- fiscal_ai-fetch_company_filing_pdf
+
+# Mistral
+
+- mistral-extract_document
+- mistral-extract_document_url
+- mistral-extract_image
+- mistral-extract_image_url
+
+# Parallel
+
+- parallel-search_web
+- parallel-extract_web
+- parallel-run_task
+- parallel-fetch_task_status
+- parallel-chat
+- parallel-findall
+- parallel-fetch_findall_status
+
+# Quartr
+
+- quartr-list_company_events
+- quartr-fetch_company_event
+- quartr-list_event_types
+- quartr-fetch_event_type
+- quartr-list_companies
+- quartr-fetch_company
+- quartr-fetch_company_transcript
+- quartr-list_company_transcripts
+- quartr-list_company_documents
+- quartr-fetch_company_document
+- quartr-list_document_types
+- quartr-fetch_document_type
+- quartr-list_company_reports
+- quartr-fetch_company_report
+- quartr-list_company_slides
+- quartr-fetch_company_slide_deck
+
+# Reducto
+
+- reducto-extract_document
+- reducto-extract_document_async
+- reducto-split_document
+- reducto-split_document_async
+- reducto-extract_document_data
+- reducto-extract_document_data_async
+- reducto-edit_document
+- reducto-edit_document_async
+- reducto-upload_document
+- reducto-fetch_job_status
+- reducto-cancel_job
+- reducto-fetch_version
+
+# Wissen
+
+- wissen-transform_transcript_quartr
+- wissen-extract_transcript_quartr
+- wissen-extract_pdf_ocr
+- wissen-extract_pdf_text
+- wissen-list_generations
+- wissen-list_gen_types
+- wissen-fetch_generation
+- wissen-fetch_tool_calls
+- wissen-fetch_token_usage
+- wissen-create_plan
+- wissen-write_todo
+- wissen-fetch_plan
+
+# Agents-as-Tools
+
+- wissen-delegate_{gen_type}
