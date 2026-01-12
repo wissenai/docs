@@ -30,6 +30,12 @@
             "pages": [
               "tools"
             ]
+          },
+          {
+            "group": "global-prompts",
+            "pages": [
+              "global-prompts"
+            ]
           }
         ]
       },
