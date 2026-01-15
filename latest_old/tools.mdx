@@ -3,94 +3,16 @@ title: "Tools"
 description: ""
 ---
 
-This refers to the `tools` component of a declaration. From the model's perspective, it sees that it has a collection of tools that it can use to complete a given task. After we've defined what task we're looking to functionalise/declare, the next step is selecting tools for the LLM to use. The intention in the way 'LLM tooling' was built is so that we can continually add more tools as we see fit without enforcemnet (that is up to the declaration) whilst also having necessary properties baked e.g. citable. 
+This refers to the tools that are available to be declared
+
+Below is a table of tools & usage notes. Use this as a guide for determining what tools you need to use and understanding tool dependencies. You should still use your own judgement on what tools to utilise.
+
+By standardising tools in this manner, we allow for ourselves to be able to describe tools:
+- by action: e.g. `list_*`, `fetch_*`, `extract_*`, `search_*`
+- by provider: e.g. `wissen-*`, `quartr-*`, `factset-*`
+- by entity: e.g. `*_company_*`, `*_generation_*`
 
 ---
-
-You can test out the tools that are available using `fai interface tools` which will open up a local gradio interface that lets you test the tools out
-
----
-
-Features:
-- [POTENTIALLY BREAKING] We may want to 'wrap inputs' so that we can layer on inputs that we require/want globally (Similar to ToolResult)
-
----
-
-All tools returns a ToolResult object
-
-```
-{
-  "tool_id": "<tool_id>",
-  "tool_name": "<tool_name>",
-  "tool_provider": "<tool_provider>",
-  "data": "<tool_result>",
-  "source_urls": ["<source_results>"],
-  "reminders": ["<reminders>"],
-  "executed_at": "<executed_at_time>",
-  "token_count": <token_count>
-}
-```
-
----
-
-At runtime (i.e. whilst the LLM is generating), as it's calling tools, the tools will be stored into the database in the `tools` table. Where in the `tools` table, it has the following schema
-
-- `tool_id`
-- `gen_id`
-- `tool_name`
-- `tool_provider`
-- `args`
-- `data` 
-- `status`
-- `created_at`
-- `token_usage`
-- `duration_ms` 
-- `error`
-
----
-
-All tools are named with a soft-syntax convention to:
-- enable tools to be as self-descriptive as possible so that it is more intuitive to human e.g `quartr-list_company_events` means it is a function that will list a company's events
-- standardised naming means we can then describe collections of tools rather than tools individually e.g. describing by provider, by action, ...
-
-Generally the tools are named as per below (you can see examples of this in the list of tools)
-
-`<tool_provider>-<action>_<response_object>` 
-
-This is also what the LLM sees before it starts a given generation which means that you are able to describe the tools at 'different levels'. This pattern will have continual development which will also impact the tool_names.
-
----
-
-Complexities
-
-1. LLMs, mostly, need to know that ordering of usage of tools is important and what ordering is optimal
-    - When given a collection of tools (especially when it is explicitly not trained on our tools), we need to steer it 'strongly' or 'lightly' to essentially use tools or a set of tools in a certain order e.g. before it thinks about what documents to study, it should look through what data is available
-    - Specifying on the `tool_name` helps with giving the effect of how we'd construct it if we asked it follow an exact execution path and specifying at higher levels e.g. at the action level gives some control to the LLM on the execution path
-2. Global vs Specific Tool Instructions
-3. Explicit tool depenedencies
-    - There are tools e.g. from Factset or Fiscal AI that require fetching company identifiers before other tools can be utilised. This, mostly, also needs to be specified. Also for tools that concern processing data e.g. reducto-extract_document_data, without pdf_urls/document_urls, the LLM won't have anything to process as such it needs to call any of the list_* document tools
-
----
-
-Citations are basically tool call references
-
-When an LLM runs an execution, they use a series of tools which during execution, it has the associated `tool_id` for that given execution. Upon generating the final_result (i.e. output), it is essentially asked to reference which tool call did it use to come to a given claim/analysis/statement of fact. The JSON pointer then essentially serves as a way for the LLM 'to get more specific' about parts of the JSON it was returend that it used.
-
-[<tool_provider>/<tool_id>#/data<json_ptr>]
-
-Where:
-
-- `<tool_provider>`: the provider namespace (string)
-- `<tool_id>`: the unique tool call id (string)
-- `#`: begins the URI fragment portion
-- `#/data`: anchors the pointer at the ToolResult’s `data` field (**always include this**)
-- `<json_ptr>`: an optional JSON Pointer suffix
-  - omit it to reference the entire `data` value
-  - otherwise it must begin with `/` and follow RFC 6901 rules
-
---- 
-
-List of tools 
 
 | Provider | Action | Tool Name | Returns | Filter By | Usage Notes |
 |----------|--------|-----------|---------|-----------|-------------|
@@ -135,23 +57,3 @@ List of tools
 | Factset | fetch | factset-fetch_company_guidance | guidance | `ids`, `metrics`, `start_date`, `end_date` | Get company guidance on metrics |
 | Factset | fetch | factset-fetch_company_segment_actuals | segment_actuals | `ids`, `metrics`, `segment_type`, `start_date`, `end_date` | Get segment-level actuals. `segment_type`: BUS or GEO |
 | Factset | fetch | factset-fetch_news_by_ticker | news | `ticker` | Get company-specific news curated by Factset |
-
----
-
-When is it a wissen tool vs a third-party tool?
-
-Tools that are not under wissen are typically tools where we 'stick as close to the API as possible' and we didn't need to build our own APIs to enable a certain functionality.
-
----
-
-How do we integrate new providers?
-
-Generally new providers are either data providers (e.g. Factset) and/or data processing providers (e.g. Reducto).
-1. [person] study the documentations i.e. specifically get an undersatnding of the different endpoints/functions
-2. [person->agent] ask agent to build a new /<provider>/... folder that essentially translates those apis into llm tools at as near parity as possible (i.e. input/outputs are fully released as is)
-3. [person] qa those new functions individually via `fai interface tools` to amke sure they are working as intended
-4. [optional person->agent] after testing this is likely to open-up questions around 'how well the tool is described' from the tool_name, tool_description and tool input param level. as such the tool needs to go through some refactoring (and also ideally aligned with the softly-enforced syntax mentioned above)
-5. [person] needs to ensure that any tool dependencies are described either within the tool-level description and/or within the input params
-
-Each new provider/existing providers have a `PROVIDER.md` within the folder to essentially serve as the qualitative logs and also notes.
-

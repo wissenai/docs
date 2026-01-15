@@ -1,0 +1,73 @@
+---
+title: "Configurations"
+description: ""
+---
+
+This refers to the configurations that are defined which impacts a given `final_result`.
+
+
+1. A declared generation
+For a generation to be valid, it requires instantiating
+- gen_type
+- input_model
+- model, provider, and model configurations
+- tools
+- instructions
+    - task prompt
+    - tool prompt
+
+optional
+- output_model
+- gen_category 
+- total_token_limit
+- max_turns
+
+```
+// declare.py 
+gateway = ModelGateway(
+    models=[
+        ModelGateway.model(name="claude_sonnet", model_name="claude-sonnet-4-5-20250929", provider="anthropic"),
+        ModelGateway.model(name="claude_opus", model_name="claude-opus-4-5-20251101", provider="anthropic"),
+        ModelGateway.model(name="claude_haiku", model_name="claude-haiku-4-5-20251001", provider="anthropic"),
+        ModelGateway.model(name="gpt52", model_name="gpt-5.2", provider="openai"),
+        ModelGateway.model(name="gpt52_pro", model_name="gpt-5.2-pro", provider="openai"),
+        ModelGateway.model(name="gpt5_mini", model_name="gpt-5-mini", provider="openai"),
+        ModelGateway.model(name="gpt5_nano", model_name="gpt-5-nano", provider="openai"),
+        ModelGateway.model(name="gpt4o", model_name="gpt-4o", provider="openai"),
+        ModelGateway.model(name="gpt4o_mini", model_name="gpt-4o-mini", provider="openai"),
+        ModelGateway.model(name="grok41_reasoning", model_name="grok-4-1-fast-reasoning", provider="xai"),
+        ModelGateway.model(name="grok41", model_name="grok-4-1-fast-non-reasoning", provider="xai"),
+        ModelGateway.model(name="grok4_reasoning", model_name="grok-4-fast-reasoning", provider="xai"),
+        ModelGateway.model(name="grok4", model_name="grok-4-fast-non-reasoning", provider="xai"),
+        ModelGateway.model(name="grok3", model_name="grok-3", provider="xai"),
+        ModelGateway.model(name="grok3_mini", model_name="grok-3-mini", provider="xai"),
+        ModelGateway.model(name="gemini3_pro", model_name="gemini-3-pro-preview", provider="google"),
+        ModelGateway.model(name="gemini3_flash", model_name="gemini-3-flash-preview", provider="google"),
+        ModelGateway.model(name="gemini25_flash", model_name="gemini-2.5-flash", provider="google"),
+        ModelGateway.model(name="gemini25_flash_lite", model_name="gemini-2.5-flash-lite", provider="google"),
+    ],
+)
+
+declare = FAIInstance(
+    name="<instance_name>",
+    ...,
+    model_gateway=gateway,
+    global_system_prompt="<path_to_global_system_prompt>"
+)
+
+@declare.generation
+class <GenerationName>(Generation):
+    """<generation_description>"""
+    gen_type = "<gen_type>"
+    gen_category = ""<gen_type>"
+    input_model = <InputModel>
+    output_model = <OutputModel> | str
+    model = "<model_alias>"
+    model_config = <model_confgs>
+    total_token_limit = <total_token_limit>
+    tools_instructions = "<path_to_tool_instructions>"
+    tools = <tools>
+    system_prompt = "<path_to_tool_instructions>"
+    max_turns = <max_turns>
+    create_pdf = <create_pdf>
+```

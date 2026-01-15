@@ -1,0 +1,69 @@
+---
+title: "Tools"
+description: ""
+---
+
+```
+{
+	"model_profile": {
+		"name": "claude_sonnet", // model alias (specified in alias) and used in this declaration e.g. claude_sonnet
+		"provider": "anthropic", // full model name e.g. 'claude-sonnet-4-5-20250929'
+		"model_name": "claude-sonnet-4-5-20250929", // model provider e.g. 'anthropic' 'azure' etc.
+		"base_url": null, // base_url is used for model_providers like azure // aws / gcp
+		"settings": {
+			"max_tokens": 60000, // this is max output tokens but note, not every provider supports this. Those who support this includes: Anthropic, OpenAI, Groq, Cohere, Mistral, Bedrock, MCP Sampling, Outlines (all providers). As such this variable being declared for an unsupported provider will pass but just may not work
+			"temperature": 0.2, // Amount of randomness injected into the response.
+			"top_p": null, // An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. Not every provider supports this. Those who support this includes: Anthropic, OpenAI, Groq, Cohere, Mistral, Bedrock, MCP Sampling, Outlines (all providers). As such this variable being declared for an unsupported provider will pass but just may not work
+			"timeout": 300, // Override the client-level default timeout for a request, in seconds. Supported by: Gemini, OpenAI, Groq, Mistral
+			"seed": null, // The random seed to use for the model, theoretically allowing for deterministic results. OpenAI, Groq, Cohere, Mistral, Gemini, Outlines (LlamaCpp, VLLMOffline)
+			"stop_sequences": null, // Sequences that will cause the model to stop generating. Supported by: OpenAI, Anthropic, Bedrock, Mistral, Groq, Cohere, Google
+			"presence_penalty": null,
+			"frequency_penalty": null,
+			"logit_bias": null,
+			"extra_headers": null, // Extra headers to send to the model. Supported by OpenAI, Anthropic, Groq
+			"extra_body": null,  // Extra body to send to the model. Supported by: OpenAI, Anthropic, Groq
+		}
+	},
+
+	// Execution settings (generation-level, not model-level)
+	"execution": {
+		"max_turns": 5,
+		"retries": 5,
+		"create_pdf": false,
+		"multi_turn": false,
+		"total_token_limit": null
+	},
+
+	// Tools with schemas
+	"tools": [...],
+
+	// Evals
+	"evals": ["THOROUGHNESS"],
+
+	// Input/Output models
+	"input_model": {
+		"name": "EquityTarget",
+		"schema": {
+			...
+		}
+	},
+	"output_model": {
+		"name": "str",
+		"schema": null
+	},
+
+	// Prompts
+	"prompts": {
+		"global_ref": "global/base.md",
+		"task_ref": null,
+		"toolset_ref": null,
+		"global": "You are a financial...",
+		"task": "## Revenue Analysis...",
+		"toolset": null,
+		"full_system": "..."
+	},
+
+	// Instance info
+	"instance_name": "my-research"
+}
+```
