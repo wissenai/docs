@@ -1,0 +1,91 @@
+---
+title: "Hedge Fund Endpoint"
+description: "Access normalized equity data with page-level results"
+---
+
+The hedge fund endpoint is the primary way to search our financial document store. It returns pages from filings, presentations and transcripts that have been processed through our classification pipeline. This guide walks through the typical workflow and outlines each part of the API.
+
+## Getting Started
+
+1. **Get API credentials.** Sign into the dashboard and generate a Bearer token.
+2. **Send a search request** to the endpoint with a query and optional filters.
+3. **Receive page-level results** including parsed text and an image link for each page.
+
+### Authentication
+
+Include your token in the `Authorization` header:
+
+```http
+Authorization: Bearer <token>
+```
+
+### Endpoint
+
+```http
+POST /v1/search  // [TO FILL WITH FINAL PATH]
+```
+
+### Request Body
+
+```json
+{
+  "query": "<natural language query>",
+  "filters": {
+    "equity_ticker": "[TO FILL]",
+    "content_type": "[TO FILL]",
+    "fiscal_year": "[OPTIONAL]"
+  },
+  "known_set": [ /* optional list of document ids */ ]
+}
+```
+
+- **`query`** – search terms in plain language.
+- **`filters`** – ontology-based filters (see [Filtering](/core-functions/filtering)).
+- **`known_set`** – documents the user already has, used to bias ranking.
+
+### Response Body
+
+```json
+{
+  "results": [
+    {
+      "page_number": 1,
+      "image": "https://.../page1.png",
+      "text": "...parsed text...",
+      "source": "<document id>"
+    }
+    /* more pages */
+  ],
+  "benchmark": {
+    "latency_ms": "[TO FILL]",
+    "precision": "[TO FILL]",
+    "recall": "[TO FILL]"
+  }
+}
+```
+
+## Core Features
+
+### Data & Ontology
+- All documents run through our proprietary ontology so that comparable fields share the same labels.
+- Combine cross-time or cross-equity slices to create analysis datasets.
+
+### LM Readable Data
+- Pages are available as raw text or rendered images so LMs can stay within context limits.
+
+### Retrieval Service
+- Searches consider text, figures and tables together to return the most relevant pages.
+- Filtering by ontology tags improves precision before ranking.
+
+### Page-Level Sourcing
+- Results always point to individual pages to keep attribution clear for analysts and LMs.
+
+## Benchmarks
+
+We regularly publish latency and quality numbers. See [Benchmarking Overview](/benchmarking/quick-overview) for details.
+
+## Next Steps
+
+- Finalize the endpoint path and request/response schemas.
+- Add code snippets demonstrating typical usage.
+- Expand benchmarks with hedge fund datasets.
